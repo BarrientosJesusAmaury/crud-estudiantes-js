@@ -1,0 +1,19 @@
+{
+  "name": "crud-estudiantes",
+  "version": "1.0.0",
+  "description": "Package de crud de estudiantes",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/BarrientosJesusAmaury/crud-estudiantes-js.git"
+  },
+  "author": "BarrientosJesusAmaury",
+  "license": "ISC",
+  "type": "module",
+  "dependencies": {
+    "readline-sync": "^1.4.10"
+  }
+}

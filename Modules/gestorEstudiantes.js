@@ -1,4 +1,4 @@
-import Estudiante from "./Estudiante.js";
+import Estudiante from "./estudiantes.js";
 
 class GestorEstudiantes {
   constructor() {

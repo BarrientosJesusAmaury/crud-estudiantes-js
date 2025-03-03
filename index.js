@@ -1,4 +1,4 @@
-import GestorEstudiantes from "./GestorEstudiantes.js";
+import GestorEstudiantes from "./Modules/gestorEstudiantes.js";
 import readline from "readline";
 
 const gestor = new GestorEstudiantes();
