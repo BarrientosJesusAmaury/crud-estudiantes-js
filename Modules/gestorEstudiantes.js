@@ -11,10 +11,13 @@ class GestorEstudiantes {
   }
 
   listar() {
-    this.estudiantes.forEach(est => {
-      console.log(`ID: ${est.id}, Nombre: ${est.nombre}, Edad: ${est.edad}, Nivel: ${est.nivel}`);
-    });
-  }
+    return this.estudiantes.map(est => ({
+        id: est.id,
+        nombre: est.nombre,
+        edad: est.edad,
+        nivel: est.nivel
+    }));
+}
 
   actualizar(id, nombre, edad, nivel) {
     for (let i = 0; i < this.estudiantes.length; i++) {
