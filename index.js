@@ -1,5 +1,5 @@
 import readline from "readline";
-import { GestorEstudiantes } from "./gestorEstudiantes.js";
+import { GestorEstudiantes } from "./Modules/gestorEstudiantes.js";
 
 const rl = readline.createInterface({
     input: process.stdin,
