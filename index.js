@@ -1,52 +1,64 @@
-import GestorEstudiantes from "./Modules/gestorEstudiantes.js";
 import readline from "readline";
+import { GestorEstudiantes } from "./gestorEstudiantes.js";
 
-const gestor = new GestorEstudiantes();
 const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout
+    input: process.stdin,
+    output: process.stdout
 });
 
-function menu() {
-  console.log("1. Agregar Estudiante");
-  console.log("2. Listar Estudiantes");
-  console.log("3. Actualizar Estudiante");
-  console.log("4. Eliminar Estudiante");
-  console.log("5. Salir");
-  rl.question("Seleccione una opción: ", function (opcion) {
-    if (opcion === "1") {
-      rl.question("Nombre: ", function (nombre) {
-        rl.question("Edad: ", function (edad) {
-          rl.question("Nivel: ", function (nivel) {
-            gestor.agregar(nombre, edad, nivel);
-            menu();
-          });
-        });
-      });
-    } else if (opcion === "2") {
-      gestor.listar();
-      menu();
-    } else if (opcion === "3") {
-      rl.question("ID del estudiante: ", function (id) {
-        rl.question("Nuevo Nombre: ", function (nombre) {
-          rl.question("Nueva Edad: ", function (edad) {
-            rl.question("Nuevo Nivel: ", function (nivel) {
-              gestor.actualizar(Number(id), nombre, edad, nivel);
-              menu();
-            });
-          });
-        });
-      });
-    } else if (opcion === "4") {
-      rl.question("ID del estudiante: ", function (id) {
-        gestor.eliminar(Number(id));
-        menu();
-      });
-    } else if (opcion === "5") {
-      rl.close();
-    } else {
-      menu();
-    }
-  });
+function mostrarMenu() {
+    console.log("\n📚 Gestión de Estudiantes");
+    console.log("1. Agregar estudiante");
+    console.log("2. Listar estudiantes");
+    console.log("3. Actualizar estudiante");
+    console.log("4. Eliminar estudiante");
+    console.log("5. Salir");
+    rl.question("Elige una opción: ", (opcion) => {
+        manejarOpcion(opcion);
+    });
 }
-menu();
+
+function manejarOpcion(opcion) {
+    switch (opcion) {
+        case "1":
+            rl.question("Nombre: ", (nombre) => {
+                rl.question("Edad: ", (edad) => {
+                    rl.question("Nivel: ", (nivel) => {
+                        GestorEstudiantes.crearEstudiante(nombre, parseInt(edad), nivel);
+                        mostrarMenu();
+                    });
+                });
+            });
+            break;
+        case "2":
+            GestorEstudiantes.listarEstudiantes();
+            mostrarMenu();
+            break;
+        case "3":
+            rl.question("ID del estudiante a actualizar: ", (id) => {
+                rl.question("Nuevo nombre: ", (nuevoNombre) => {
+                    rl.question("Nueva edad: ", (nuevaEdad) => {
+                        rl.question("Nuevo nivel: ", (nuevoNivel) => {
+                            GestorEstudiantes.actualizarEstudiante(parseInt(id), nuevoNombre, parseInt(nuevaEdad), nuevoNivel);
+                            mostrarMenu();
+                        });
+                    });
+                });
+            });
+            break;
+        case "4":
+            rl.question("ID del estudiante a eliminar: ", (id) => {
+                GestorEstudiantes.eliminarEstudiante(parseInt(id));
+                mostrarMenu();
+            });
+            break;
+        case "5":
+            console.log("Saliendo...");
+            rl.close();
+            break;
+        default:
+            console.log("Opción no válida.");
+            mostrarMenu();
+    }
+};
+mostrarMenu();

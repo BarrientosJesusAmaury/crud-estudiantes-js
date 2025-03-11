@@ -1,43 +1,40 @@
-import Estudiante from "./estudiantes.js";
+import { Estudiante } from "./Estudiante.js";
 
-class GestorEstudiantes {
-  constructor() {
-    this.estudiantes = [];
-  }
+export const GestorEstudiantes = {
+    estudiantes: {},
 
-  agregar(nombre, edad, nivel) {
-    const estudiante = new Estudiante(nombre, edad, nivel);
-    this.estudiantes.push(estudiante);
-  }
+    crearEstudiante(nombre, edad, nivel) {
+        const estudiante = new Estudiante(nombre, edad, nivel);
+        this.estudiantes[estudiante.id] = estudiante;
+    },
 
-  listar() {
-    return this.estudiantes.map(est => ({
-        id: est.id,
-        nombre: est.nombre,
-        edad: est.edad,
-        nivel: est.nivel
-    }));
-}
+    listarEstudiantes() {
+        if (Object.keys(this.estudiantes).length === 0) {
+            console.log("No hay estudiantes registrados.");
+        } else {
+            console.log("\nLista de estudiantes:");
+            for (let id in this.estudiantes) {
+                console.log(`${id}: ${this.estudiantes[id].nombre}, ${this.estudiantes[id].edad} años, Nivel: ${this.estudiantes[id].nivel}`);
+            }
+        }
+    },
 
-  actualizar(id, nombre, edad, nivel) {
-    for (let i = 0; i < this.estudiantes.length; i++) {
-      if (this.estudiantes[i].id === id) {
-        this.estudiantes[i].nombre = nombre;
-        this.estudiantes[i].edad = edad;
-        this.estudiantes[i].nivel = nivel;
-        return;
-      }
+    actualizarEstudiante(id, nuevoNombre, nuevaEdad, nuevoNivel) {
+        if (this.estudiantes[id]) {
+            let estudiante = this.estudiantes[id];
+            estudiante.nombre = nuevoNombre;
+            estudiante.edad = nuevaEdad;
+            estudiante.nivel = nuevoNivel;
+        } else {
+            console.log("No se encontró el estudiante.");
+        }
+    },
+
+    eliminarEstudiante(id) {
+        if (this.estudiantes[id]) {
+            delete this.estudiantes[id];
+        } else {
+            console.log("No se encontró el estudiante.");
+        }
     }
-  }
-
-  eliminar(id) {
-    for (let i = 0; i < this.estudiantes.length; i++) {
-      if (this.estudiantes[i].id === id) {
-        this.estudiantes.splice(i, 1);
-        return;
-      }
-    }
-  }
-}
-
-export default GestorEstudiantes;
+};
